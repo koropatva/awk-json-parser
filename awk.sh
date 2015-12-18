@@ -4,10 +4,15 @@ BEGIN{
 }
 
 {
-	iss =  oParam($0, "\"issues\"", 1, 1) ""
-	output[i,0] = sParam(iss, "created", 1, 1);
+	iss =  oParam($0, "\"issues\"", 1, 1)
+	output[i,0] = substr($0, 0, 10);
+	output[i,1] = substr($0, 37, 17);
+	output[i,2] = sParam(iss, "\"issueCmtId\"", 1, 1);
+	output[i,3] = sParam(iss, "\"status\"", 1, 1);
+	payments =  aaParam($0, "\"successfulOrderPayments\"");
+	output[i,4] = saParam(payments, "\"cmtId\"");
 	i++;
-	j = 2;
+	j = 5;
 }
 
 END{ 

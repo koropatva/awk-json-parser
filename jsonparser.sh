@@ -1,3 +1,35 @@
+function aaParam(query, search,  result){
+        return aParam(query, search, 0, 0,  result);
+}
+
+function aParam(query, search, number, size,  result){
+        n = split(query "",a,",");
+        result = "";
+        tmp = "";
+        fl = 0;
+        count = 0;
+
+        for(j = 0; j < n; j++){
+
+                if(index(a[j], search) > 0){
+                        tmp = a[j];
+                        if(index(a[j], "[") > 0){ fl++; }
+                        if(index(a[j], "]") > 0){ fl--; }
+                } else if(tmp != ""){
+                        tmp = tmp ", " a[j];
+                        if(index(a[j], "[") > 0){ fl++;}
+                        if(index(a[j], "]") > 0){ fl--;}
+                }
+
+               if(tmp != "" &&  fl == 0){
+                          count++;
+                          if( ( count >= number && count < number + size ) || number == 0){ result = result ", " tmp;}
+                         tmp = "";
+                }
+        }
+        return result;
+}
+
 function oaParam(query, search,  result){
         return oParam(query, search, 0, 0,  result);
 }
