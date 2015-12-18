@@ -1,8 +1,20 @@
-function aaParam(query, search,  result){
-        return aParam(query, search, 0, 0,  result);
+function arrayAllValue(query, search,  result){
+        return arrayValue(query, search, 0, 0);
 }
 
-function aParam(query, search, number, size,  result){
+function arrayValue(query, search, number, size,  result){
+	return criteriaValue(query, search, "[", "]", number, size);
+}
+
+function objectAllValue(query, search,  result){
+        return objectValue(query, search, 0, 0);
+}
+
+function objectValue(query, search, number, size,  result){
+	return criteriaValue(query, search, "{", "}", number, size);
+}
+
+function criteriaValue(query, search, begin, end, number, size,  result){
         n = split(query "",a,",");
         result = "";
         tmp = "";
@@ -13,44 +25,12 @@ function aParam(query, search, number, size,  result){
 
                 if(index(a[j], search) > 0){
                         tmp = a[j];
-                        if(index(a[j], "[") > 0){ fl++; }
-                        if(index(a[j], "]") > 0){ fl--; }
+                        if(index(a[j], begin) > 0){ fl++; }
+                        if(index(a[j], end) > 0){ fl--; }
                 } else if(tmp != ""){
                         tmp = tmp ", " a[j];
-                        if(index(a[j], "[") > 0){ fl++;}
-                        if(index(a[j], "]") > 0){ fl--;}
-                }
-
-               if(tmp != "" &&  fl == 0){
-                          count++;
-                          if( ( count >= number && count < number + size ) || number == 0){ result = result ", " tmp;}
-                         tmp = "";
-                }
-        }
-        return result;
-}
-
-function oaParam(query, search,  result){
-        return oParam(query, search, 0, 0,  result);
-}
-
-function oParam(query, search, number, size,  result){
-        n = split(query "",a,",");
-        result = "";
-        tmp = "";
-        fl = 0;
-        count = 0;
-
-        for(j = 0; j < n; j++){
-
-                if(index(a[j], search) > 0){
-                        tmp = a[j];
-                        if(index(a[j], "{") > 0){ fl++; }
-                        if(index(a[j], "}") > 0){ fl--; }
-                } else if(tmp != ""){
-                        tmp = tmp ", " a[j];
-                        if(index(a[j], "{") > 0){ fl++;}
-                        if(index(a[j], "}") > 0){ fl--;}
+                        if(index(a[j], begin) > 0){ fl++;}
+                        if(index(a[j], end) > 0){ fl--;}
                 }
 
                if(tmp != "" &&  fl == 0){
@@ -62,11 +42,11 @@ function oParam(query, search, number, size,  result){
         return result;
 }
 
-function saParam(query, search,  result){
-        return sParam(query, search, 0, 0,  result);
+function simpleAllValue(query, search,  result){
+        return simpleValue(query, search, 0, 0);
 }
 
-function sParam(query, search, number, size,  result){
+function simpleValue(query, search, number, size,  result){
         n = split(query "", a, ",");
         result = "";
         tnp = "";

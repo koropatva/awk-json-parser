@@ -4,13 +4,13 @@ BEGIN{
 }
 
 {
-	iss =  oParam($0, "\"issues\"", 1, 1)
+	iss =  objectValue($0, "\"issues\"", 1, 1)
 	output[i,0] = substr($0, 0, 10);
 	output[i,1] = substr($0, 37, 17);
-	output[i,2] = sParam(iss, "\"issueCmtId\"", 1, 1);
-	output[i,3] = sParam(iss, "\"status\"", 1, 1);
-	payments =  aaParam($0, "\"successfulOrderPayments\"");
-	output[i,4] = saParam(payments, "\"cmtId\"");
+	output[i,2] = simpleValue(iss, "\"issueCmtId\"", 1, 1);
+	output[i,3] = simpleValue(iss, "\"status\"", 1, 1);
+	payments =  arrayAllValue($0, "\"successfulOrderPayments\"");
+	output[i,4] = simpleAllValue(payments, "\"cmtId\"");
 	i++;
 	j = 5;
 }
